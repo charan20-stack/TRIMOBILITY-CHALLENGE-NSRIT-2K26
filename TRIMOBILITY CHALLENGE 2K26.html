@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> NSRIT VIZAG Tri-Mobility Challenge 2026 - 24hr Grand Challenge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FFD700;
+            --secondary: #00BFFF;
+            --accent: #FF6347;
+            --dark-bg: #0a0e27;
+            --card-bg: #1a1f3a;
+            --text: #e0e0e0;
+            --success: #00ff41;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #050814 100%);
+            color: var(--text);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Electric Grid Background */
+        .electric-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(255, 215, 0, 0.08) 25%, rgba(255, 215, 0, 0.08) 26%, transparent 27%, transparent 74%, rgba(255, 215, 0, 0.08) 75%, rgba(255, 215, 0, 0.08) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 191, 255, 0.08) 25%, rgba(0, 191, 255, 0.08) 26%, transparent 27%, transparent 74%, rgba(0, 191, 255, 0.08) 75%, rgba(0, 191, 255, 0.08) 76%, transparent 77%, transparent);
+            background-size: 60px 60px;
+            animation: grid-move 15s linear infinite;
+        }
+
+        @keyframes grid-move {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(60px); }
+        }
+
+        /* Electric Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float-up 20s infinite;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) translateX(0px);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Thunder Effect */
+        .thunder {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+        }
+
+        .thunder.flash {
+            animation: thunder-flash 0.2s ease-in-out;
+        }
+
+        @keyframes thunder-flash {
+            0%, 100% { opacity: 0; background: transparent; }
+            50% { opacity: 0.3; background: rgba(255, 215, 0, 0.3); }
+        }
+
+        /* Lightning Bolt */
+        .lightning {
+            position: fixed;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--primary), transparent);
+            left: 50%;
+            top: 0;
+            opacity: 0;
+            z-index: 4;
+            box-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary);
+        }
+
+        .lightning.strike {
+            animation: lightning-strike 0.4s ease-in-out;
+        }
+
+        @keyframes lightning-strike {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            background: linear-gradient(90deg, rgba(10, 14, 39, 0.95), rgba(26, 31, 58, 0.95));
+            border-bottom: 3px solid var(--primary);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--primary);
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px var(--primary), 0 0 30px rgba(255, 215, 0, 0.5);
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { text-shadow: 0 0 15px var(--primary), 0 0 30px rgba(255, 215, 0, 0.5); }
+            50% { text-shadow: 0 0 25px var(--primary), 0 0 50px rgba(255, 215, 0, 0.8); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .register-btn {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--primary), #FFA500);
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px var(--primary);
+            transition: all 0.3s;
+            font-size: 12px;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px var(--primary), 0 0 60px var(--primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: 14px;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            animation: slide-down 0.8s ease-out;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            animation: slide-down 0.8s ease-out 0.2s both;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: #b0b4c8;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+            animation: slide-down 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes slide-down {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Prize Highlight Section */
+        .prize-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.15));
+            border: 3px solid var(--primary);
+            border-radius: 16px;
+            padding: 50px 40px;
+            margin: 40px auto;
+            max-width: 700px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), inset 0 0 30px rgba(255, 215, 0, 0.1);
+            animation: prize-pulse 2s ease-in-out infinite;
+            overflow: hidden;
+        }
+
+        .prize-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent,
+                rgba(255, 215, 0, 0.2),
+                transparent 90deg
+            );
+            animation: rotate-shine 4s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate-shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .prize-label {
+            font-size: 16px;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            animation: float-pulse 2s ease-in-out infinite;
+        }
+
+        .prize-amount {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary), 0 0 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 165, 0, 0.4);
+            margin: 20px 0;
+            letter-spacing: 2px;
+            animation: prize-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes prize-glow {
+            0%, 100% { 
+                text-shadow: 0 0 20px var(--primary), 0 0 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 165, 0, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                text-shadow: 0 0 40px var(--primary), 0 0 60px rgba(255, 215, 0, 0.8), 0 0 100px rgba(255, 165, 0, 0.6);
+                transform: scale(1.05);
+            }
+        }
+
+        .prize-description {
+            font-size: 16px;
+            color: #e0e0e0;
+            margin-top: 15px;
+            font-weight: 600;
+            animation: float-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes prize-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), inset 0 0 30px rgba(255, 215, 0, 0.1);
+            }
+            50% { 
+                box-shadow: 0 0 80px rgba(255, 215, 0, 0.6), inset 0 0 50px rgba(255, 215, 0, 0.2);
+            }
+        }
+
+        @keyframes float-pulse {
+            0%, 100% { opacity: 1; transform: translateY(0px); }
+            50% { opacity: 0.8; transform: translateY(-5px); }
+        }
+
+        /* Countdown Timer */
+        .timer-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 191, 255, 0.1));
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 40px;
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.1);
+            animation: timer-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes timer-glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.1); }
+            50% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.5), inset 0 0 30px rgba(255, 215, 0, 0.2); }
+        }
+
+        .timer-title {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .time-unit {
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .time-unit:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .time-value {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .time-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #a0a4c8;
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+
+        .submission-text {
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 700;
+            margin-top: 20px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Domains Section */
+        .domains-section {
+            margin: 80px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary);
+            text-shadow: 0 0 15px var(--primary);
+            position: relative;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '⚡';
+            margin: 0 15px;
+            animation: thunder-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes thunder-pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .domains-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .domain-card {
+            background: linear-gradient(135deg, rgba(26, 31, 58, 0.9), rgba(42, 51, 84, 0.9));
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            padding: 28px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .domain-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            transition: left 0.4s;
+        }
+
+        .domain-card:hover::before {
+            left: 100%;
+        }
+
+        .domain-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 40px var(--primary), inset 0 0 20px rgba(255, 215, 0, 0.1);
+            border-color: var(--secondary);
+        }
+
+        .domain-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: icon-float 3s ease-in-out infinite;
+        }
+
+        @keyframes icon-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .domain-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .domain-description {
+            font-size: 13px;
+            color: #a8adc4;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .real-time-problem {
+            background: rgba(0, 191, 255, 0.1);
+            border-left: 3px solid var(--secondary);
+            padding: 10px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        /* Challenge Info */
+        .challenge-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin: 50px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--secondary);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(0, 191, 255, 0.3);
+        }
+
+        .info-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .info-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Footer CTA */
+        .footer-cta {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .cta-subtitle {
+            font-size: 16px;
+            color: #b0b4c8;
+            margin-bottom: 30px;
+        }
+
+        .register-btn-large {
+            padding: 18px 50px;
+            background: linear-gradient(135deg, var(--primary), #FFA500);
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 30px var(--primary), 0 0 60px rgba(255, 215, 0, 0.4);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .register-btn-large::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: left 0.4s;
+            z-index: -1;
+        }
+
+        .register-btn-large:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 0 50px var(--primary), 0 0 80px rgba(255, 215, 0, 0.6);
+        }
+
+        .register-btn-large:hover::before {
+            left: 100%;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 14, 39, 0.98);
+            border-top: 2px solid var(--primary);
+            padding: 30px 20px;
+            text-align: center;
+            color: #8a8fa8;
+            font-size: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 40px 15px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .prize-amount {
+                font-size: 2.5rem;
+            }
+
+            .domains-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timer-section {
+                padding: 25px;
+            }
+
+            .countdown {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Electric Grid Background -->
+    <div class="electric-grid"></div>
+
+    <!-- Particles -->
+    <div class="particles" id="particlesContainer"></div>
+
+    <!-- Thunder Flash -->
+    <div class="thunder" id="thunder"></div>
+
+    <!-- Lightning -->
+    <div class="lightning" id="lightning"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">NSRIT</div>
+        <nav class="nav-links">
+            <a href="#domains">Domains</a>
+            <a href="#prize">Prize</a>
+            <a href="#timer">Deadline</a>
+            <a href="#register">Register</a>
+        </nav>
+        <button class="register-btn" onclick="triggerThunder(); openRegister();">REGISTER NOW</button>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="container">
+        <div class="hero">
+            <div class="hero-subtitle">IN NSRIT FEBRUARY [20-21]2K26</div>
+            <h1 class="hero-title">
+                <span>India's First Tri-Mobility 24-Hours Grand Challenge</span>
+            </h1>
+            <p class="hero-description">
+                Challenge yourself across 15 cutting-edge domains including Electric Vehicles, Hydrogen Technology, Drones, IoT, Robotics, AI, Quantum Computing, and more. Build solutions for real-world problems.
+            </p>
+        </div>
+
+        <!-- Prize Highlight Section -->
+        <div class="prize-section" id="prize">
+            <div class="prize-label">🏆 Total Prize Worth 🏆</div>
+            <div class="prize-amount">₹1,80,000</div>
+            <div class="prize-description">Distributed among winners across all domains</div>
+        </div>
+
+        <!-- Timer Section -->
+        <div class="timer-section" id="timer">
+            <div class="timer-title">📋 Abstract Submission Deadline</div>
+            <div class="countdown">
+                <div class="time-unit">
+                    <div class="time-value" id="days">00</div>
+                    <div class="time-label">Days</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="hours">00</div>
+                    <div class="time-label">Hours</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="minutes">00</div>
+                    <div class="time-label">Minutes</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="seconds">00</div>
+                    <div class="time-label">Seconds</div>
+                </div>
+            </div>
+            <div class="submission-text">⏰ Deadline: January 29, 2026 @ 12:00 PM IST</div>
+        </div>
+
+        <!-- Challenge Info -->
+        <div class="challenge-info">
+            <div class="info-card">
+                <div class="info-number">24</div>
+                <div class="info-label">Hour Challenge</div>
+            </div>
+            <div class="info-card">
+                <div class="info-number">15+</div>
+                <div class="info-label">Domains</div>
+            </div>
+            <div class="info-card">
+                <div class="info-number">₹1,80,000</div>
+                <div class="info-label">Prize Worth</div>
+            </div>
+            <div class="info-card">
+                <div class="info-number">100+</div>
+                <div class="info-label">Teams</div>
+            </div>
+        </div>
+
+        <!-- Domains Section -->
+        <div class="domains-section" id="domains">
+            <h2 class="section-title">Challenging Domains</h2>
+            <div class="domains-grid">
+                <div class="domain-card">
+                    <div class="domain-icon">🚗</div>
+                    <div class="domain-title">Electric Vehicle (EV)</div>
+                    <div class="domain-description">Design sustainable transportation solutions for modern cities.</div>
+                    <div class="real-time-problem">Real Challenge: Battery optimization for 500km+ range</div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-icon">⛽</div>
+                    <div class="domain-title">Hydrogen Vehicle</div>
+                    <div class="domain-description">Develop clean fuel-cell technology for zero-emission mobility.</div>
+                    <div class="real-time-problem">Real Challenge: Hydrogen storage & distribution infrastructure</div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-icon">🚁</div>
+                    <div class="domain-title">Drone / Aerial Mobility</div>
+                    <div class="domain-description">Create autonomous aerial systems for logistics and delivery.</div>
+                    <div class="real-time-problem">Real Challenge: Traffic management for urban air mobility</div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-icon">🌐</div>
+                    <div class="domain-title">Internet of Things (IoT)</div>
+                    <div class="domain-description">Build connected smart devices and sensor networks.</div>
+                    <div class="real-time-problem">Real Challenge: Real-time data processing at scale</div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-icon">🤖</div>
+                    <div class="domain-title">Robotics</div>
+                    <div class="domain-description">Engineer intelligent machines for automation and assistance.</div>
+                    <div class="real-time-problem">Real Challenge: AI-powered autonomous navigation systems</div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-icon">🔐</div>
+                    <div class="domain-title">Cyber Security</div>
+                    <div class="domain-description">Build defense systems against cyber threats and attacks.</div>
+                    <div class="real-time-problem">Real Challenge: Zero-day threat detection using behavioral analysis</div>
+                </div>
+
+
+                <div class="domain-card">
+                    <div class="domain-icon">🧠</div>
+                    <div class="domain-title">Artificial Intelligence (AI)</div>
+                    <div class="domain-description">Develop ML/DL solutions for intelligent automation.</div>
+                    <div class="real-time-problem">Real Challenge: Model optimization for edge devices</div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-icon">⚛️</div>
+                    <div class="domain-title">Quantum Computing</div>
+                    <div class="domain-description">Explore quantum algorithms for complex problem-solving.</div>
+                    <div class="real-time-problem">Real Challenge: Quantum error correction & qubit optimization</div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-icon">⚡</div>
+                    <div class="domain-title">Smart & Intelligent Grid</div>
+                    <div class="domain-description">Build next-gen electricity distribution systems.</div>
+                    <div class="real-time-problem">Real Challenge: Load balancing with renewable energy integration</div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-icon">🌍</div>
+                    <div class="domain-title">Model-Based Sustainable</div>
+                    <div class="domain-description">Create eco-friendly solutions for environmental challenges.</div>
+                    <div class="real-time-problem">Real Challenge: Carbon footprint reduction in manufacturing</div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-icon">🚇</div>
+                    <div class="domain-title">Electric & Smart Mobility</div>
+                    <div class="domain-description">Revolutionize public transport with smart technology.</div>
+                    <div class="real-time-problem">Real Challenge: Real-time route optimization for city-wide networks</div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-icon">🌱</div>
+                    <div class="domain-title">Environment & Agriculture</div>
+                    <div class="domain-description">Develop sustainable solutions for farming and food safety.</div>
+                    <div class="real-time-problem">Real Challenge: Precision agriculture for 3x yield improvement</div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-icon">🏙️</div>
+                    <div class="domain-title">Smart & Intelligent Cities</div>
+                    <div class="domain-description">Build IoT solutions for urban infrastructure management.</div>
+                    <div class="real-time-problem">Real Challenge: Real-time traffic & pollution monitoring</div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-icon">🏥</div>
+                    <div class="domain-title">Smart Healthcare & Digital Pharma</div>
+                    <div class="domain-description">Innovate healthcare solutions with digital ecosystem integration.</div>
+                    <div class="real-time-problem">Real Challenge: Telemedicine platform optimization for rural areas</div>
+                </div>
+
+               <div class="domain-card">
+                    <div class="domain-icon">💡</div>
+                    <div class="domain-title">Student Innovation</div>
+                    <div class="domain-description">Present your groundbreaking ideas across any technology domain.</div>
+                    <div class="real-time-problem">Real Challenge: Turn innovative concepts into viable prototypes</div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer CTA -->
+        <div class="footer-cta" id="register">
+            <h2 class="cta-title">Ready to Innovate?</h2>
+            <p class="cta-subtitle">Submit your abstract and join 100+ brilliant minds in India's first tri-mobility challenge</p>
+            <button class="register-btn-large" onclick="triggerThunder(); openRegister();">⚡ REGISTER NOW ⚡</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>VIZAG Tri-Mobility Challenge 2026 | Nadimpalli Satyanarayana Raju Institute of Technology</p>
+        <p>February 20-21, 2026 | Prize Worth: ₹1,80,000</p>
+        <p>Event Chair | hodeee@nsrit.edu.in | Dr.R.S.R.Krishnam naidu(Proff & HOD EEE) | 📞 80740 93388</p>
+        <p style="margin-top: 15px;">📧 Event Leads | Dr.S.Rajendra Prasad (Faculty coordinator) 📞 95154 34340 | K.Priyanka (Faculty coordinator) 📞 99493 23747 | K.Guna Sekhar (Student coordinator) 📞 96402 30881</p>
+    </footer>
+
+    <script>
+        // Initialize Particles
+        function initParticles() {
+            const container = document.getElementById('particlesContainer');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Thunder Effect
+        function triggerThunder() {
+            const thunder = document.getElementById('thunder');
+            const lightning = document.getElementById('lightning');
+
+            thunder.classList.add('flash');
+            lightning.classList.add('strike');
+
+            setTimeout(() => {
+                thunder.classList.remove('flash');
+                lightning.classList.remove('strike');
+            }, 400);
+
+            if (Math.random() > 0.5) {
+                setTimeout(() => {
+                    triggerThunder();
+                }, Math.random() * 300 + 200);
+            }
+        }
+
+        // Countdown Timer
+        function updateCountdown() {
+            const deadline = new Date('2026-01-29T12:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = deadline - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+            if (distance < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                document.querySelector('.submission-text').textContent = '✅ Submissions Closed!';
+            }
+        }
+
+        // Open Register Form
+        function openRegister() {
+            window.open('https://docs.google.com/forms/d/e/1FAIpQLSdzn3uB0ADTgaKBdxZZwzNReitc6nLknmfpAMFYMhg3hP-UIw/viewform', '_blank');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initParticles();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    triggerThunder();
+                }
+            }, 8000);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
