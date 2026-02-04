@@ -693,6 +693,124 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        /* Rules and Prizes Section */
+        .rules-prizes-section {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            margin: 4rem 0;
+        }
+
+        .rules-box, .prizes-section {
+            background: rgba(26, 31, 58, 0.8);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .rules-box:hover, .prizes-section:hover {
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .rules-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .rule-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .rule-icon {
+            font-size: 2.5rem;
+            min-width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rule-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .rule-content p {
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .prizes-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .prize-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .prize-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 191, 255, 0.2);
+            border-color: var(--secondary);
+        }
+
+        .prize-category {
+            color: var(--secondary);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .prize-amount {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            margin: 1rem 0;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .prize-description {
+            color: var(--text);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .rules-container, .prizes-container {
+                grid-template-columns: 1fr;
+            }
+
+            .rules-box, .prizes-section {
+                padding: 2rem;
+            }
+
+            .prize-amount {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -741,7 +859,7 @@
 
         <!-- Timer Section -->
         <div class="timer-section" id="timer">
-            <div class="timer-title">📋 Abstract Submission Deadline</div>
+            <div class="timer-title">📋 Registration Deadline</div>
             <div class="countdown">
                 <div class="time-unit">
                     <div class="time-value" id="days">00</div>
@@ -760,7 +878,7 @@
                     <div class="time-label">Seconds</div>
                 </div>
             </div>
-            <div class="submission-text">⏰ Deadline: February 7, 2026 @ 12:00 PM IST</div>
+            <div class="submission-text">⏰ Deadline: February 15, 2026 @ 12:00 PM IST</div>
         </div>
 
         <!-- Challenge Info -->
@@ -896,10 +1014,81 @@
             </div>
         </div>
 
+        <!-- Rules Section -->
+        <div class="rules-prizes-section">
+            <!-- Rules Box -->
+            <div class="rules-box">
+                <h2 class="section-title"> Rules of the event </h2>
+                <div class="rules-container">
+                    <div class="rule-item">
+                        <div class="rule-icon">⏰</div>
+                        <div class="rule-content">
+                            <h3>First Come, First Serve Basis</h3>
+                            <p>Team registration is on a first come, first served basis. Ensure timely registration to secure your spot.</p>
+                        </div>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-icon">⚖️</div>
+                        <div class="rule-content">
+                            <h3>Judges Review is Final</h3>
+                            <p>All decisions made by the panel of judges are final and binding. No further appeals or modifications will be entertained.</p>
+                        </div>
+                         </div>
+                    <div class="rule-item">
+                        <div class="rule-icon">💯</div>
+                        <div class="rule-content">
+                            <h3>Original project only</h3>
+                            <p>Projects must be developed by your team. Plagiarism or copying leads to disqualification.</p>
+                        </div>
+                         </div>
+                    <div class="rule-item">
+                        <div class="rule-icon">✅</div>
+                        <div class="rule-content">
+                            <h3>Valid proofs</h3>
+                            <p>Participants must carry valid ID cards during the event.</p>
+                        </div>
+                         </div>
+                    <div class="rule-item">
+                        <div class="rule-icon">🗣️</div>
+                        <div class="rule-content">
+                            <h3>Maintain discpline</h3>
+                            <p>No misuse of resources, no disturbance to other teams.</p>
+                        </div>
+                        </div>
+                    <div class="rule-item">
+                        <div class="rule-icon">📞</div>
+                        <div class="rule-content">
+                            <h3>Follow instructions</h3>
+                            <p>Follow instructions given by organizers, mentors, and judges.</p>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prize Distribution Section -->
+            <div class="prizes-section">
+                <h2 class="section-title">Prize Distribution</h2>
+                <div class="prizes-container">
+                    <div class="prize-card">
+                        <div class="prize-category">Tri-Mobility Challenge</div>
+                        <div class="prize-amount">₹1,00,000</div>
+                        <div class="prize-description">Total prize pool for the main Tri-Mobility Challenge</div>
+                    </div>
+                    <div class="prize-card">
+                        <div class="prize-category">Student Innovation</div>
+                        <div class="prize-amount">₹80,000</div>
+                        <div class="prize-description">Total prize pool for the Student Innovation track</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Footer CTA -->
         <div class="footer-cta" id="register">
             <h2 class="cta-title">Ready to Innovate?</h2>
-            <p class="cta-subtitle">Submit your abstract and join 100+ brilliant minds in India's first tri-mobility challenge</p>
+            <p class="cta-subtitle">Register now and join 100+ brilliant minds in India's first tri-mobility challenge</p>
             <button class="register-btn-large" onclick="triggerThunder(); openRegister();">⚡ REGISTER NOW ⚡</button>
         </div>
     </div>
@@ -949,7 +1138,7 @@
 
         // Countdown Timer
         function updateCountdown() {
-            const deadline = new Date('2026-02-07T12:00:00').getTime();
+            const deadline = new Date('2026-02-15T12:00:00').getTime();
             const now = new Date().getTime();
             const distance = deadline - now;
 
