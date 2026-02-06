@@ -802,6 +802,41 @@
     width: auto;
     cursor: pointer;
 }
+        .hero-sponsors {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.sponsor-text {
+    font-size: 14px;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    margin-bottom: 12px;
+}
+
+.sponsor-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.sponsor-logos img {
+    height: 45px;
+    max-width: 120px;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
+.sponsor-logos img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+}
+
 
 
         @media (max-width: 768px) {
@@ -853,24 +888,36 @@
 </header>
 
 
-    <!-- Hero Section -->
     <div class="container">
-        <div class="hero">
-            <div class="hero-subtitle">IN NSRIT FEBRUARY [20-21]2K26</div>
-            <h1 class="hero-title">
-                <span>India's First Tri-Mobility 24-Hours Grand Challenge</span>
-            </h1>
-            <p class="hero-description">
-                Challenge yourself across 15 cutting-edge domains including Electric Vehicles, Hydrogen Technology, Drones, IoT, Robotics, AI, Quantum Computing, and more. Build solutions for real-world problems.
-            </p>
-        </div>
+    <div class="hero">
+        <div class="hero-subtitle">IN NSRIT FEBRUARY [20-21]2K26</div>
 
-        <!-- Prize Highlight Section -->
-        <div class="prize-section" id="prize">
-            <div class="prize-label">🏆 Total Prize Worth 🏆</div>
-            <div class="prize-amount">₹1,80,000</div>
-            <div class="prize-description">Distributed among winners across all domains</div>
+        <h1 class="hero-title">
+            <span>India's First Tri-Mobility 24-Hours Grand Challenge</span>
+        </h1>
+
+        <p class="hero-description">
+            Challenge yourself across 15 cutting-edge domains including Electric Vehicles, Hydrogen Technology, Drones, IoT, Robotics, AI, Quantum Computing, and more. Build solutions for real-world problems.
+        </p>
+
+        <!-- Sponsors -->
+        <div class="hero-sponsors">
+            <p class="sponsor-text">Sponsored By</p>
+            <div class="sponsor-logos">
+                <img src="images/sponsor1.png" alt="Sponsor 1">
+                <img src="images/sponsor2.png" alt="Sponsor 2">
+                <img src="images/sponsor3.png" alt="Sponsor 3">
+            </div>
         </div>
+    </div>
+
+    <!-- Prize Section -->
+    <div class="prize-section" id="prize">
+        <div class="prize-label">🏆 Total Prize Worth 🏆</div>
+        <div class="prize-amount">₹1,80,000</div>
+        <div class="prize-description">Distributed among winners across all domains</div>
+    </div>
+</div>
 
         <!-- Timer Section -->
         <div class="timer-section" id="timer">
@@ -1207,6 +1254,7 @@
     </script>
 </body>
 </html>
+
 
 
 
